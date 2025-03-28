@@ -1,0 +1,23 @@
+<div (scroll)="onScroll($event)" style="height: 80vh; overflow-y: auto; padding: 16px;">
+    <mat-grid-list [cols]="cols" rowHeight="2.5:4">
+        <mat-grid-tile *ngFor="let pokemon of pokemonList">
+            <mat-card>
+                <mat-card-header>
+                    <!--<mat-card-title>{{pokemon.name | titlecase }}</mat-card-title>-->
+                </mat-card-header>
+                <img mat-card-image [src]="pokemon.sprites.frontDefault" alt="pokemon">
+                <span style="background-color: #e3350d;"></span>
+                <mat-card-content >
+                    <span style="opacity: 0.5;">Nro. {{pokemon.id | number:'3.0'}}</span>
+                    <h1>{{pokemon.name | titlecase}}</h1>                    
+                    <div class="types"></div>
+                    <span *ngFor="let tipos of pokemon.types" [class]="'type-' + tipos">
+                        {{tipos | titlecase}}
+                    </span>                              
+                </mat-card-content>
+            </mat-card>
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>
+<!--<button (click)="cargarMas()" style="width: 98.7vw; height: 100px;">Cargar mas</button>-->
+       
