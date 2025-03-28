@@ -19,6 +19,7 @@ import com.bsdc.PokeAPI.repositories.PokemonAbilityRepository;
 import com.bsdc.PokeAPI.repositories.PokemonRepository;
 import com.bsdc.PokeAPI.repositories.PokemonTypeRepository;
 import com.bsdc.PokeAPI.repositories.SpriteRepository;
+import com.bsdc.PokeAPI.specifications.PokemonSpecification;
 
 @Service
 public class BDPokeAPIService {
@@ -94,6 +95,11 @@ public class BDPokeAPIService {
 
     public PokemonEntity getPokemonByName(String name){
         return pokemonRepository.findByName(name);
+    }
+
+    public Page<PokemonDTO> getPokemonByType(String type, Pageable pageable){
+        return pokemonRepository.findAll(PokemonSpecification.hasType(type), pageable)
+        .map(pokemonEntity -> new PokemonDTO(pokemonEntity));
     }
     
 }
