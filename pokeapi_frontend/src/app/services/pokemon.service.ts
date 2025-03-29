@@ -27,4 +27,13 @@ export class PokemonService {
     return this.http.get<Pokemon>(`${this.url}/allPokemon`, { params });
   }
 
+  public getPokemonByType(type:string, page:number, size:number):Observable<any>{
+    const params = new HttpParams()
+    .set('type', type)
+    .set('page', page.toString())
+    .set('size', size.toString());
+
+    return this.http.get<Pokemon>(`${this.url}/porTipo`, { params });
+  }
+
 }

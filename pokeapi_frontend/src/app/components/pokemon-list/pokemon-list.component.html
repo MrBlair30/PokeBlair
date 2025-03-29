@@ -1,3 +1,15 @@
+<div>
+    <mat-form-field appearance="fill">
+        <mat-label>Filtrar por Tipo</mat-label>
+        <mat-select [(ngModel)]="tipoSeleccionado" (selectionChange)="cambioDeTipo()">
+            <mat-option value="">Todos</mat-option>
+            <mat-option *ngFor="let tipos of types" [value]="tipos">
+                {{tipos | titlecase}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+</div>
+
 <div (scroll)="onScroll($event)" style="height: 80vh; overflow-y: auto; padding: 16px;">
     <mat-grid-list [cols]="cols" rowHeight="2.5:4">
         <mat-grid-tile *ngFor="let pokemon of pokemonList">

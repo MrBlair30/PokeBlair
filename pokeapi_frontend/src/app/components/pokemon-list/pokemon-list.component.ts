@@ -18,6 +18,14 @@ export class PokemonListComponent implements OnInit{
   public isLoading = false;
   public cols: number = 4;
 
+  public types: string[] = 
+  [
+    "fire","water","grass","electric","steel","fairy","dark","bug","psychic","ground","rock","flying",
+    "dragon","poison","normal","ghost","fighting","ice"    
+  ];
+
+  public tipoSeleccionado: string = "";
+
   constructor(private pokemonService: PokemonService, private breakPointObserver: BreakpointObserver) {}
 
   ngOnInit(): void {
@@ -27,17 +35,32 @@ export class PokemonListComponent implements OnInit{
 
   public cargarPokemons() {
     this.isLoading = true;
-    this.pokemonService.getAllPokemon(this.pagActual, this.pagSize).subscribe({
-      next: (data) => {
-        this.pokemonList = [...this.pokemonList, ...data.content];
-        this.pokemonsTotal = data.totalElements;
-        this.isLoading = false;
-      },
-      error: (err) => {
-        console.log(err);
-        this.isLoading = false;
-      }
-    });
+    if(this.tipoSeleccionado!=""){
+      this.pokemonService.getPokemonByType(this.tipoSeleccionado,this.pagActual, this.pagSize).subscribe({
+        next: (data) => {
+          this.pokemonList = [...this.pokemonList, ...data.content];
+          this.pokemonsTotal = data.totalElements;
+          this.isLoading = false;
+        },
+        error: (err) => {
+          console.log(err);
+          this.isLoading = false;
+        }
+      })
+    }else if(this.tipoSeleccionado==""){
+      this.pokemonService.getAllPokemon(this.pagActual, this.pagSize).subscribe({
+        next: (data) => {
+          this.pokemonList = [...this.pokemonList, ...data.content];
+          this.pokemonsTotal = data.totalElements;
+          this.isLoading = false;
+        },
+        error: (err) => {
+          console.log(err);
+          this.isLoading = false;
+        }
+      });
+    }
+    
   }
 
 
@@ -46,6 +69,12 @@ export class PokemonListComponent implements OnInit{
       this.pagActual++;
       this.cargarPokemons();
     }
+  }
+
+  public cambioDeTipo(){
+    this.pagActual = 0;
+    this.pokemonList = [];
+    this.cargarPokemons();
   }
   
   onScroll(event: any) {
