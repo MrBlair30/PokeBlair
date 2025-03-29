@@ -9,7 +9,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
 import {MatCardModule} from '@angular/material/card';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -23,10 +24,12 @@ import { HttpClientModule } from '@angular/common/http';
     MatCardModule,
     MatFormFieldModule,
     FormsModule,
+    MatProgressSpinnerModule,
     MatSelectModule,
     HttpClientModule
   ],
   providers: [
+    provideHttpClient(withFetch()),
     provideClientHydration(withEventReplay())
   ],
   bootstrap: [AppComponent]
