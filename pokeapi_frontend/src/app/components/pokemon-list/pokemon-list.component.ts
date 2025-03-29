@@ -16,6 +16,7 @@ export class PokemonListComponent implements OnInit{
   public pagSize = 50;
   public pokemonsTotal = 0;
   public isLoading = false;
+  public cargandoNuevos = false;
   public cols: number = 4;
 
   public types: string[] = 
@@ -41,10 +42,12 @@ export class PokemonListComponent implements OnInit{
           this.pokemonList = [...this.pokemonList, ...data.content];
           this.pokemonsTotal = data.totalElements;
           this.isLoading = false;
+          this.cargandoNuevos = false;
         },
         error: (err) => {
           console.log(err);
           this.isLoading = false;
+          this.cargandoNuevos = false;
         }
       })
     }else if(this.tipoSeleccionado==""){
@@ -53,10 +56,12 @@ export class PokemonListComponent implements OnInit{
           this.pokemonList = [...this.pokemonList, ...data.content];
           this.pokemonsTotal = data.totalElements;
           this.isLoading = false;
+          this.cargandoNuevos = false;
         },
         error: (err) => {
           console.log(err);
           this.isLoading = false;
+          this.cargandoNuevos = false;
         }
       });
     }
@@ -74,7 +79,8 @@ export class PokemonListComponent implements OnInit{
   public cambioDeTipo(){
     this.pagActual = 0;
     this.pokemonList = [];
-    this.cargarPokemons();
+    this.cargandoNuevos = true;
+    this.cargarPokemons();    
   }
   
   onScroll(event: any) {

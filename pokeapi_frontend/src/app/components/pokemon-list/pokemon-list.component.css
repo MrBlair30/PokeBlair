@@ -1,5 +1,5 @@
-div{
-    background: linear-gradient(180deg,#ddd 10%,#fff);
+.grid-container{
+    background: linear-gradient(180deg,#fff 20%,#ccc);
 }
 mat-card {
     display: flex;
@@ -183,3 +183,13 @@ mat-grid-list {
     padding: 10px;
     margin-right: 5px;
 }
+
+.spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+}
+
+mat-spinner {    
+    --mdc-circular-progress-active-indicator-color: #ff5722;
+  }

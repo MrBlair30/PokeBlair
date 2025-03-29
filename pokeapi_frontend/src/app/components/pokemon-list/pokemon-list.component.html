@@ -10,7 +10,10 @@
     </mat-form-field>
 </div>
 
-<div (scroll)="onScroll($event)" style="height: 80vh; overflow-y: auto; padding: 16px;">
+<div (scroll)="onScroll($event)" style="height: 80vh; overflow-y: auto; padding: 16px;" class="grid-container">   
+    <div *ngIf="cargandoNuevos" class="spinner-container">
+        <mat-spinner *ngIf="cargandoNuevos"></mat-spinner>
+    </div> 
     <mat-grid-list [cols]="cols" rowHeight="2.5:4">
         <mat-grid-tile *ngFor="let pokemon of pokemonList">
             <mat-card>
@@ -30,6 +33,9 @@
             </mat-card>
         </mat-grid-tile>
     </mat-grid-list>
+    <div *ngIf="!cargandoNuevos && isLoading" class="spinner-container">
+        <mat-spinner *ngIf="!cargandoNuevos && isLoading"></mat-spinner>
+    </div>
 </div>
 <!--<button (click)="cargarMas()" style="width: 98.7vw; height: 100px;">Cargar mas</button>-->
        
