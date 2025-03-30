@@ -4,7 +4,16 @@
         <mat-select [(ngModel)]="tipoSeleccionado" (selectionChange)="cambioDeTipo()">
             <mat-option value="">Todos</mat-option>
             <mat-option *ngFor="let tipos of types" [value]="tipos">
-                {{tipos | titlecase}}
+                {{traducirTipo(tipos)}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>Filtrar por Generación</mat-label>
+        <mat-select [(ngModel)]="generacionSeleccionada" (selectionChange)="cambioDeGeneracion()">
+            <mat-option value="">Todos</mat-option>
+            <mat-option *ngFor="let generaciones of generations" [value]="generaciones">
+                Generación - {{generaciones}}
             </mat-option>
         </mat-select>
     </mat-form-field>
@@ -27,7 +36,7 @@
                     <h1>{{pokemon.name | titlecase}}</h1>                    
                     <div class="types"></div>
                     <span *ngFor="let tipos of pokemon.types" [class]="'type-' + tipos">
-                        {{tipos | titlecase}}
+                        {{traducirTipo(tipos)}}
                     </span>                              
                 </mat-card-content>
             </mat-card>

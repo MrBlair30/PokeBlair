@@ -36,4 +36,13 @@ export class PokemonService {
     return this.http.get<Pokemon>(`${this.url}/porTipo`, { params });
   }
 
+  public getPokemonByGeneration(id:string, page:number, size:number):Observable<any>{
+    const params = new HttpParams()
+    .set('id', id)
+    .set('page', page.toString())
+    .set('size', size.toString());
+
+    return this.http.get<Pokemon>(`${this.url}/porGeneracion`, { params });
+  }
+
 }
