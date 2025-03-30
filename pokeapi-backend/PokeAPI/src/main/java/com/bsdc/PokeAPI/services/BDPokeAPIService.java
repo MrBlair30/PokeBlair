@@ -124,4 +124,10 @@ public void asignarGeneracion() {
         .map(pokemonEntity -> new PokemonDTO(pokemonEntity));
     }
     
+
+    public Page<PokemonDTO> getPokemonByGeneration(int id, Pageable pageable){
+        return pokemonRepository.findAll(PokemonSpecification.hasGeneration(id), pageable)
+        .map(pokemonEntity -> new PokemonDTO(pokemonEntity));
+    }
+
 }

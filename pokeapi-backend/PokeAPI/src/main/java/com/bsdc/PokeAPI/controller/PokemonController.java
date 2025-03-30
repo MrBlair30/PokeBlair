@@ -55,6 +55,11 @@ public class PokemonController {
         return ResponseEntity.ok("Generaciones asignadas con gran satisfacción");
     }
 
+    @GetMapping("/porGeneracion")
+    public ResponseEntity<Page<PokemonDTO>> getPokemonByGeneration(@RequestParam int id, @PageableDefault(size=50, sort="id") Pageable pageable){
+        return ResponseEntity.ok(bdPokeAPIService.getPokemonByGeneration(id, pageable));
+    }
+
 
     // **************************** Llamada directa a la PokeApi ****************************
     /*@Autowired
