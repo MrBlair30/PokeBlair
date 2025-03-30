@@ -9,6 +9,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -48,7 +49,13 @@ public class PokemonController {
         return ResponseEntity.ok(bdPokeAPIService.getPokemonByType(type,pageable));
     }
 
-   
+    @PostMapping("/admin/asignarGen")
+    public ResponseEntity<String> asignarGeneraciones(){
+        bdPokeAPIService.asignarGeneracion();
+        return ResponseEntity.ok("Generaciones asignadas con gran satisfacción");
+    }
+
+
     // **************************** Llamada directa a la PokeApi ****************************
     /*@Autowired
     private PokemonService pokemonService;

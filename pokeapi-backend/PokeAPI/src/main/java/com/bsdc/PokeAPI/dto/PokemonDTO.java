@@ -1,5 +1,6 @@
 package com.bsdc.PokeAPI.dto;
 
+import com.bsdc.PokeAPI.entidades.GenerationEntity;
 import com.bsdc.PokeAPI.entidades.PokemonAbilityEntity;
 import com.bsdc.PokeAPI.entidades.PokemonEntity;
 import com.bsdc.PokeAPI.entidades.PokemonTypeEntity;
@@ -17,7 +18,8 @@ public class PokemonDTO {
     private int weight;
     private List<String> types;       
     private List<String> abilities;   
-    private SpriteDTO sprites;        
+    private SpriteDTO sprites;     
+    private GenerationDTO generation;   
 
     
     public PokemonDTO(PokemonEntity pokemon) {
@@ -35,6 +37,7 @@ public class PokemonDTO {
                 .toList();
         
         this.sprites = new SpriteDTO(pokemon.getSprites());
+        this.generation = new GenerationDTO(pokemon.getGeneration());
     }
     
     @Data
@@ -45,6 +48,17 @@ public class PokemonDTO {
         public SpriteDTO(SpriteEntity sprite) {
             this.frontDefault = sprite.getFront_default();
             this.frontShiny = sprite.getFront_shiny();
+        }
+    }
+
+    @Data
+    public static class GenerationDTO{
+        private int id;
+        private String name;
+
+        public GenerationDTO(GenerationEntity generation){
+            this.id = generation.getId();
+            this.name = generation.getName();
         }
     }
 }
