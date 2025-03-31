@@ -1,4 +1,10 @@
 <div>
+    <mat-form-field appearance="fill" style="width: 50%;">
+        <mat-label>Buscar Pokemon</mat-label>
+        <input matInput placeholder="Nombre o ID..." [(ngModel)]="busqueda" (keyup.enter)="buscarPokemon()">
+    </mat-form-field>
+    <button mat-flat-button style="margin-right: 100px;" (click)="buscarPokemon()">Buscar</button>
+
     <mat-form-field appearance="fill">
         <mat-label>Filtrar por Tipo</mat-label>
         <mat-select [(ngModel)]="tipoSeleccionado" (selectionChange)="cambioDeTipo()">
@@ -8,6 +14,7 @@
             </mat-option>
         </mat-select>
     </mat-form-field>
+
     <mat-form-field appearance="fill">
         <mat-label>Filtrar por Generación</mat-label>
         <mat-select [(ngModel)]="generacionSeleccionada" (selectionChange)="cambioDeGeneracion()">
@@ -25,7 +32,7 @@
     </div> 
     <mat-grid-list [cols]="cols" rowHeight="2.5:4">
         <mat-grid-tile *ngFor="let pokemon of pokemonList">
-            <mat-card>
+            <mat-card (click)="mostrarDetalles(pokemon.id)">
                 <mat-card-header>
                     <!--<mat-card-title>{{pokemon.name | titlecase }}</mat-card-title>-->
                 </mat-card-header>

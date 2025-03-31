@@ -8,14 +8,18 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
 import {MatCardModule} from '@angular/material/card';
+import {MatInputModule} from '@angular/material/input';
+import {MatButtonModule} from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
+import { PokemonDetallesComponent } from './components/pokemon-detalles/pokemon-detalles/pokemon-detalles.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PokemonListComponent
+    PokemonListComponent,
+    PokemonDetallesComponent
   ],
   imports: [
     BrowserModule,
@@ -26,6 +30,8 @@ import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/
     FormsModule,
     MatProgressSpinnerModule,
     MatSelectModule,
+    MatInputModule,
+    MatButtonModule,
     HttpClientModule
   ],
   providers: [

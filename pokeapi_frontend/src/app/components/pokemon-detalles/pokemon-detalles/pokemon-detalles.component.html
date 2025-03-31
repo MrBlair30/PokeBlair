@@ -1,0 +1,18 @@
+<p>pokemon-detalles works!</p>
+<button (click)="mostrarLista()">Cargar lista de pokemons</button>
+<div>
+    <mat-card style="background-color: #fff;">
+        <mat-card-header>            
+        </mat-card-header>
+        <img mat-card-image [src]="pokemon.sprites.frontShiny" alt="pokemon">
+        <span style="background-color: #e3350d;"></span>
+        <mat-card-content >
+            <span style="opacity: 0.5;">Nro. {{pokemon.id | number:'3.0'}}</span>
+            <h1>{{pokemon.name | titlecase}}</h1>                    
+            <div class="types"></div>
+            <span *ngFor="let tipos of pokemon.types" [class]="'type-' + tipos">
+                {{traducirTipo(tipos)}}
+            </span>             
+        </mat-card-content>
+    </mat-card>
+</div>

@@ -1,0 +1,138 @@
+.types{
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.type-grass{
+    background-color: #1cb477;
+    color: #fff;
+    font-size: medium;
+    padding: 10px;
+    margin-right: 5px;
+}
+.type-fire{
+    background-color: #e04f16;
+    color: #fff;
+    font-size: medium;
+    padding: 10px;
+    margin-right: 5px;
+}
+.type-poison{
+    background-color: #b41cac;
+    color: #fff;
+    font-size: medium;
+    padding: 10px;
+    margin-right: 5px;
+}
+.type-bug{
+    background-color: #729f3f;
+    color: #fff;
+    font-size: medium;
+    padding: 10px;
+    margin-right: 5px;
+}
+.type-dark{
+    background-color: #707070;
+    color: #fff;
+    font-size: medium;
+    padding: 10px;
+    margin-right: 5px;
+}
+.type-dragon{
+    background: linear-gradient(180deg, #53a4cf 50%, #f16e57 50%);
+    color: #fff;
+    font-size: medium;
+    padding: 10px;
+    margin-right: 5px;
+}
+.type-electric{
+    background-color: #eed535;
+    color: #333;
+    font-size: medium;
+    padding: 10px;
+    margin-right: 5px;
+}
+.type-fairy{
+    background-color: #fdb9e9;
+    color: #333;
+    font-size: medium;
+    padding: 10px;
+    margin-right: 5px;
+}
+.type-fighting{
+    background-color: #d56723;
+    color: #fff;
+    font-size: medium;
+    padding: 10px;
+    margin-right: 5px;
+}
+.type-flying{
+    background: linear-gradient(180deg, #3dc7ef 50%, #bdb9b8 50%);
+    color: #333;
+    font-size: medium;
+    padding: 10px;
+    margin-right: 5px;
+}
+.type-ghost{
+    background-color: #7b62a3;
+    color: #fff;
+    font-size: medium;
+    padding: 10px;
+    margin-right: 5px;
+}
+.type-ground{
+    background: linear-gradient(180deg, #f7de3f 50%, #ab9842 50%);
+    color: #fff;
+    font-size: medium;
+    padding: 10px;
+    margin-right: 5px;
+}
+.type-ice{
+    background-color: #51c4e7;
+    color: #333;
+    font-size: medium;
+    padding: 10px;
+    margin-right: 5px;
+}
+.type-normal{
+    background-color: #a4acaf;
+    color: #333;
+    font-size: medium;
+    padding: 10px;
+    margin-right: 5px;
+}
+.type-psychic{
+    background-color: #f366b9;
+    color: #fff;
+    font-size: medium;
+    padding: 10px;
+    margin-right: 5px;
+}
+.type-rock{
+    background-color: #a38c21;
+    color: #fff;
+    font-size: medium;
+    padding: 10px;
+    margin-right: 5px;
+}
+.type-steel{
+    background-color: #9eb7b8;
+    color: #333;
+    font-size: medium;
+    padding: 10px;
+    margin-right: 5px;
+}
+.type-water{
+    background-color: #4592c4;
+    color: #fff;
+    font-size: medium;
+    padding: 10px;
+    margin-right: 5px;
+}
+
+.spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+}

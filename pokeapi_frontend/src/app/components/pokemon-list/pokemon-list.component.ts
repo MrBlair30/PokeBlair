@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Pokemon } from '../../model/pokemon.model';
 import { PokemonService } from '../../services/pokemon.service';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pokemon-list',
@@ -27,6 +28,8 @@ export class PokemonListComponent implements OnInit{
 
   public generations: string[] = ["1","2","3","4","5","6","7","8","9"];
 
+  public busqueda: string = "";
+
   traduccionesTipos: Record<string, string> = {
     fire: "Fuego",
     water: "Agua",
@@ -51,7 +54,7 @@ export class PokemonListComponent implements OnInit{
   public tipoSeleccionado: string = "";
   public generacionSeleccionada: string = "";
 
-  constructor(private pokemonService: PokemonService, private breakPointObserver: BreakpointObserver) {}
+  constructor(private pokemonService: PokemonService, private breakPointObserver: BreakpointObserver, private router: Router) {}
 
   ngOnInit(): void {
     this.ajustarGrid();
@@ -166,6 +169,31 @@ export class PokemonListComponent implements OnInit{
 
   public traducirTipo(tipo: string): string{
     return this.traduccionesTipos[tipo];
+  }
+
+  public mostrarDetalles(pokemonId: number){    
+    this.router.navigate(["/pokemon",pokemonId]);
+  }
+
+
+  public buscarPokemon(){
+    alert("Buscando...");
+    if(!this.busqueda.trim()){
+      return;
+    }
+
+    if(!isNaN(Number(this.busqueda.trim()))){
+      this.router.navigate(["/pokemon", this.busqueda.trim()]);
+    }else{
+      this.pokemonService.getPokemonByName(this.busqueda.trim().toLowerCase()).subscribe({
+        next: (data) => {
+          this.router.navigate(["/pokemon", data.id]);
+        },
+        error: (err) => {
+          console.log(err);
+        }
+      })
+    }
   }
 
 }
