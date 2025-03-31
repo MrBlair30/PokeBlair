@@ -21,6 +21,7 @@ import com.bsdc.PokeAPI.entidades.SpriteEntity;
 import com.bsdc.PokeAPI.model.Pokemon;
 import com.bsdc.PokeAPI.repositories.GenerationRepository;
 import com.bsdc.PokeAPI.repositories.PokemonRepository;
+import com.bsdc.PokeAPI.repositories.SpriteRepository;
 import com.bsdc.PokeAPI.specifications.PokemonSpecification;
 
 @Service
@@ -30,6 +31,9 @@ public class BDPokeAPIService {
 
     @Autowired
     private PokemonRepository pokemonRepository;
+
+    @Autowired
+    private SpriteRepository spriteRepository;
 
     @Autowired
     private GenerationRepository generationRepository;
@@ -68,8 +72,8 @@ public class BDPokeAPIService {
             pokemon.setAbilities(abilities);
 
             SpriteEntity spriteEntity = new SpriteEntity();
-            spriteEntity.setFront_default(pokeRespuesta.getSprites().getFront_default());
-            spriteEntity.setFront_shiny(pokeRespuesta.getSprites().getFront_shiny());
+            spriteEntity.setFront_default(pokeRespuesta.getSprites().getOther().getOfficialArtwork().getFront_default());
+            spriteEntity.setFront_shiny(pokeRespuesta.getSprites().getOther().getOfficialArtwork().getFront_shiny());
             spriteEntity.setPokemon(pokemon);
             pokemon.setSprites(spriteEntity);
 
@@ -80,29 +84,43 @@ public class BDPokeAPIService {
     }
 
     @Transactional
-public void asignarGeneracion() {
-    Map<Integer, Map.Entry<Integer, Integer>> generaciones = Map.of(
-        1, Map.entry(1, 151),
-        2, Map.entry(152, 251),
-        3, Map.entry(252, 386),
-        4, Map.entry(387, 493),
-        5, Map.entry(494, 649),
-        6, Map.entry(650, 721),
-        7, Map.entry(722, 809),
-        8, Map.entry(810, 905),
-        9, Map.entry(906, 1025)
-    );
+    public void asignarGeneracion() {
+        Map<Integer, Map.Entry<Integer, Integer>> generaciones = Map.of(
+            1, Map.entry(1, 151),
+            2, Map.entry(152, 251),
+            3, Map.entry(252, 386),
+            4, Map.entry(387, 493),
+            5, Map.entry(494, 649),
+            6, Map.entry(650, 721),
+            7, Map.entry(722, 809),
+            8, Map.entry(810, 905),
+            9, Map.entry(906, 1025)
+        );
 
-    for (Map.Entry<Integer, Map.Entry<Integer, Integer>> entry : generaciones.entrySet()) {
-        int generacionId = entry.getKey();
-        int min = entry.getValue().getKey();
-        int max = entry.getValue().getValue();
+        for (Map.Entry<Integer, Map.Entry<Integer, Integer>> entry : generaciones.entrySet()) {
+            int generacionId = entry.getKey();
+            int min = entry.getValue().getKey();
+            int max = entry.getValue().getValue();
 
-        GenerationEntity generacion = generationRepository.findById(generacionId);
-        
-        generationRepository.actualizarGeneracionPorRango(min, max, generacion);
+            GenerationEntity generacion = generationRepository.findById(generacionId);
+            
+            generationRepository.actualizarGeneracionPorRango(min, max, generacion);
+        }
     }
-}
+
+
+    @Transactional
+    public void actualizarSprites(){
+        for(int id = 1; id<=1025; id++){
+            String url = POKEAPI_URL + id;
+            Pokemon pokeRespuesta = restTemplate.getForObject(url, Pokemon.class);
+
+            String nuevoFrontDefault = pokeRespuesta.getSprites().getOther().getOfficialArtwork().getFront_default();
+            String nuevoFrontShiny = pokeRespuesta.getSprites().getOther().getOfficialArtwork().getFront_shiny();
+
+            spriteRepository.actualizarSprites(id, nuevoFrontDefault, nuevoFrontShiny);
+        }
+    }
 
 
     public Page<PokemonDTO> getPokemons(int page, int size) {

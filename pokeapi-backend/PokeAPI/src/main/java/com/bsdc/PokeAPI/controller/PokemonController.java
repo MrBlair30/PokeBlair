@@ -60,6 +60,11 @@ public class PokemonController {
         return ResponseEntity.ok(bdPokeAPIService.getPokemonByGeneration(id, pageable));
     }
 
+    @GetMapping("/actualizarSprites")
+    public ResponseEntity<String> actualizarSprites(){
+        bdPokeAPIService.actualizarSprites();
+        return ResponseEntity.ok("Sprites actualizados con exito JEJE");
+    }
 
     // **************************** Llamada directa a la PokeApi ****************************
     /*@Autowired
