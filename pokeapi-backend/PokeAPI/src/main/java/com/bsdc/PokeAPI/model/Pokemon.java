@@ -12,4 +12,5 @@ public class Pokemon {
     private List<PokemonType> types;
     private List<PokemonAbility> abilities;
     private Sprite sprites;
+    private List<PokemonStat> stats;
 }

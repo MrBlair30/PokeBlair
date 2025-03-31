@@ -38,4 +38,7 @@ public class PokemonEntity {
     @JoinColumn(name = "generation_id")
     private GenerationEntity generation;
 
+    @OneToMany(mappedBy = "pokemon", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<PokemonStatEntity> stats;
+
 }

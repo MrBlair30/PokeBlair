@@ -16,11 +16,13 @@ import com.bsdc.PokeAPI.dto.PokemonDTO;
 import com.bsdc.PokeAPI.entidades.GenerationEntity;
 import com.bsdc.PokeAPI.entidades.PokemonAbilityEntity;
 import com.bsdc.PokeAPI.entidades.PokemonEntity;
+import com.bsdc.PokeAPI.entidades.PokemonStatEntity;
 import com.bsdc.PokeAPI.entidades.PokemonTypeEntity;
 import com.bsdc.PokeAPI.entidades.SpriteEntity;
 import com.bsdc.PokeAPI.model.Pokemon;
 import com.bsdc.PokeAPI.repositories.GenerationRepository;
 import com.bsdc.PokeAPI.repositories.PokemonRepository;
+import com.bsdc.PokeAPI.repositories.PokemonStatRepository;
 import com.bsdc.PokeAPI.repositories.SpriteRepository;
 import com.bsdc.PokeAPI.specifications.PokemonSpecification;
 
@@ -37,6 +39,9 @@ public class BDPokeAPIService {
 
     @Autowired
     private GenerationRepository generationRepository;
+
+    @Autowired
+    private PokemonStatRepository pokemonStatRepository;
 
 
     private static final String POKEAPI_URL = "https://pokeapi.co/api/v2/pokemon/";
@@ -83,6 +88,32 @@ public class BDPokeAPIService {
         
     }
 
+
+    public Page<PokemonDTO> getPokemons(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("id").ascending());
+        Page<PokemonEntity> pokemonPage = pokemonRepository.findAll(pageable);        
+        return pokemonPage.map(pokemonEntity -> new PokemonDTO(pokemonEntity));
+    }
+
+    public PokemonEntity getPokemonById(int id){
+        return pokemonRepository.findById(id);
+    }
+
+    public PokemonEntity getPokemonByName(String name){
+        return pokemonRepository.findByName(name);
+    }
+
+    public Page<PokemonDTO> getPokemonByType(String type, Pageable pageable){
+        return pokemonRepository.findAll(PokemonSpecification.hasType(type), pageable)
+        .map(pokemonEntity -> new PokemonDTO(pokemonEntity));
+    }
+    
+
+    public Page<PokemonDTO> getPokemonByGeneration(int id, Pageable pageable){
+        return pokemonRepository.findAll(PokemonSpecification.hasGeneration(id), pageable)
+        .map(pokemonEntity -> new PokemonDTO(pokemonEntity));
+    }
+
     @Transactional
     public void asignarGeneracion() {
         Map<Integer, Map.Entry<Integer, Integer>> generaciones = Map.of(
@@ -123,29 +154,28 @@ public class BDPokeAPIService {
     }
 
 
-    public Page<PokemonDTO> getPokemons(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by("id").ascending());
-        Page<PokemonEntity> pokemonPage = pokemonRepository.findAll(pageable);        
-        return pokemonPage.map(pokemonEntity -> new PokemonDTO(pokemonEntity));
+    @Transactional
+    public void guardarStats(){
+        for(int id = 1; id<=1025; id++){
+            String url = POKEAPI_URL + id;
+
+            Pokemon pokeRespuesta = restTemplate.getForObject(url, Pokemon.class);
+
+            PokemonEntity pokemon = pokemonRepository.findById(id);
+            List<PokemonStatEntity> stats = pokeRespuesta.getStats().stream()
+            .map(stat -> {
+                PokemonStatEntity pokemonStat = new PokemonStatEntity();
+                pokemonStat.setBase_stat(stat.getBase_stat());
+                pokemonStat.setName(stat.getStat().getName());
+                pokemonStat.setPokemon(pokemon); //Establece el pokemon del PokemonStatEntity, por ejemplo bulbasaur
+                return pokemonStat;
+            }).toList();
+
+            pokemon.setStats(stats); //Establece las stats del pokemon actual, por ejemplo bulbasaur
+
+            pokemonStatRepository.saveAll(stats);
+        }
     }
 
-    public PokemonEntity getPokemonById(int id){
-        return pokemonRepository.findById(id);
-    }
-
-    public PokemonEntity getPokemonByName(String name){
-        return pokemonRepository.findByName(name);
-    }
-
-    public Page<PokemonDTO> getPokemonByType(String type, Pageable pageable){
-        return pokemonRepository.findAll(PokemonSpecification.hasType(type), pageable)
-        .map(pokemonEntity -> new PokemonDTO(pokemonEntity));
-    }
     
-
-    public Page<PokemonDTO> getPokemonByGeneration(int id, Pageable pageable){
-        return pokemonRepository.findAll(PokemonSpecification.hasGeneration(id), pageable)
-        .map(pokemonEntity -> new PokemonDTO(pokemonEntity));
-    }
-
 }

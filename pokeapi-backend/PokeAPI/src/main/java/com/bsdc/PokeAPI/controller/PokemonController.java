@@ -66,6 +66,12 @@ public class PokemonController {
         return ResponseEntity.ok("Sprites actualizados con exito JEJE");
     }
 
+    @GetMapping("/guardarStats")
+    public ResponseEntity<String> guardarStats(){
+        bdPokeAPIService.guardarStats();
+        return ResponseEntity.ok("Stats guardadas con exito JEJE");
+    }
+
     // **************************** Llamada directa a la PokeApi ****************************
     /*@Autowired
     private PokemonService pokemonService;

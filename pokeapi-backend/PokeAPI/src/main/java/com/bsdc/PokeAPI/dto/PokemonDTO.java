@@ -3,6 +3,7 @@ package com.bsdc.PokeAPI.dto;
 import com.bsdc.PokeAPI.entidades.GenerationEntity;
 import com.bsdc.PokeAPI.entidades.PokemonAbilityEntity;
 import com.bsdc.PokeAPI.entidades.PokemonEntity;
+import com.bsdc.PokeAPI.entidades.PokemonStatEntity;
 import com.bsdc.PokeAPI.entidades.PokemonTypeEntity;
 import com.bsdc.PokeAPI.entidades.SpriteEntity;
 import lombok.Data;
@@ -20,6 +21,7 @@ public class PokemonDTO {
     private List<String> abilities;   
     private SpriteDTO sprites;     
     private GenerationDTO generation;   
+    private List<StatDTO> stats;
 
     
     public PokemonDTO(PokemonEntity pokemon) {
@@ -38,6 +40,9 @@ public class PokemonDTO {
         
         this.sprites = new SpriteDTO(pokemon.getSprites());
         this.generation = new GenerationDTO(pokemon.getGeneration());
+
+        this.stats = pokemon.getStats().stream()
+            .map(stat -> new StatDTO(stat)).toList();
     }
     
     @Data
@@ -59,6 +64,17 @@ public class PokemonDTO {
         public GenerationDTO(GenerationEntity generation){
             this.id = generation.getId();
             this.name = generation.getName();
+        }
+    }
+
+    @Data
+    public static class StatDTO{
+        private int base_stat;
+        private String name;
+
+        public StatDTO(PokemonStatEntity stat){
+            this.base_stat = stat.getBase_stat();
+            this.name = stat.getName();
         }
     }
 }
