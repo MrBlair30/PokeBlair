@@ -3,6 +3,7 @@ import { Pokemon } from '../../model/pokemon.model';
 import { PokemonService } from '../../services/pokemon.service';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-pokemon-list',
@@ -54,7 +55,12 @@ export class PokemonListComponent implements OnInit{
   public tipoSeleccionado: string = "";
   public generacionSeleccionada: string = "";
 
-  constructor(private pokemonService: PokemonService, private breakPointObserver: BreakpointObserver, private router: Router) {}
+  constructor(
+    private pokemonService: PokemonService,
+    private breakPointObserver: BreakpointObserver,
+    private router: Router,
+    private snackBar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {
     this.ajustarGrid();
@@ -177,7 +183,6 @@ export class PokemonListComponent implements OnInit{
 
 
   public buscarPokemon(){
-    alert("Buscando...");
     if(!this.busqueda.trim()){
       return;
     }
@@ -190,7 +195,11 @@ export class PokemonListComponent implements OnInit{
           this.router.navigate(["/pokemon", data.id]);
         },
         error: (err) => {
-          console.log(err);
+          this.snackBar.open("Pokemon no encontrado", "Cerrar", {
+            duration: 3000,
+            horizontalPosition: "center",
+            verticalPosition: "top"
+          });
         }
       })
     }
