@@ -3,6 +3,7 @@ package com.bsdc.PokeAPI.entidades;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
@@ -25,6 +26,12 @@ public class PokemonEntity {
 
     private int weight;
 
+    @Column(nullable = false, columnDefinition = "integer default 0")
+    private int capture_rate;
+
+    @Column(nullable = true)
+    private String description;
+
     @OneToMany(mappedBy = "pokemon", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<PokemonTypeEntity> types;
 
@@ -40,5 +47,16 @@ public class PokemonEntity {
 
     @OneToMany(mappedBy = "pokemon", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<PokemonStatEntity> stats;
+
+    @OneToMany(mappedBy = "basePokemon", fetch = FetchType.LAZY)
+    private List<EvolutionChainEntity> chainAsBase;
+
+    @OneToMany(mappedBy = "fromPokemon", fetch = FetchType.LAZY)
+    private List<EvolutionDetailEntity> evolutionsFrom;
+
+    @OneToMany(mappedBy = "toPokemon", fetch = FetchType.LAZY)
+    private List<EvolutionDetailEntity> evolutionsTo;
+
+    
 
 }

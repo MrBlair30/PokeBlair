@@ -13,4 +13,11 @@ public class Pokemon {
     private List<PokemonAbility> abilities;
     private Sprite sprites;
     private List<PokemonStat> stats;
+    private Species species;
+
+    @Data
+    public static class Species{
+        private String url;
+    }
+
 }

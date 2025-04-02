@@ -13,6 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import com.bsdc.PokeAPI.dto.PokemonDTO;
+import com.bsdc.PokeAPI.entidades.EvolutionChainEntity;
+import com.bsdc.PokeAPI.entidades.EvolutionDetailEntity;
 import com.bsdc.PokeAPI.entidades.GenerationEntity;
 import com.bsdc.PokeAPI.entidades.PokemonAbilityEntity;
 import com.bsdc.PokeAPI.entidades.PokemonEntity;
@@ -20,6 +22,10 @@ import com.bsdc.PokeAPI.entidades.PokemonStatEntity;
 import com.bsdc.PokeAPI.entidades.PokemonTypeEntity;
 import com.bsdc.PokeAPI.entidades.SpriteEntity;
 import com.bsdc.PokeAPI.model.Pokemon;
+import com.bsdc.PokeAPI.model.PokemonEvolution;
+import com.bsdc.PokeAPI.model.PokemonSpecies;
+import com.bsdc.PokeAPI.repositories.EvolutionChainRepository;
+import com.bsdc.PokeAPI.repositories.EvolutionDetailRepository;
 import com.bsdc.PokeAPI.repositories.GenerationRepository;
 import com.bsdc.PokeAPI.repositories.PokemonRepository;
 import com.bsdc.PokeAPI.repositories.PokemonStatRepository;
@@ -42,6 +48,12 @@ public class BDPokeAPIService {
 
     @Autowired
     private PokemonStatRepository pokemonStatRepository;
+
+    @Autowired
+    private EvolutionChainRepository evolutionChainRepository;
+
+    @Autowired
+    private EvolutionDetailRepository evolutionDetailRepository;
 
 
     private static final String POKEAPI_URL = "https://pokeapi.co/api/v2/pokemon/";
@@ -178,4 +190,106 @@ public class BDPokeAPIService {
     }
 
     
+    @Transactional
+    public void agregarDataPokemonSpecies(){
+        for(int id = 1; id<=1025; id++){
+            String url = POKEAPI_URL + id;
+            Pokemon pokeRespuesta = restTemplate.getForObject(url, Pokemon.class);
+
+            String url2 = pokeRespuesta.getSpecies().getUrl();
+
+            PokemonSpecies pokeRespuesta2 = restTemplate.getForObject(url2, PokemonSpecies.class);
+
+            PokemonEntity pokemon = pokemonRepository.findById(id);
+
+            pokemon.setCapture_rate(pokeRespuesta2.getCapture_rate());
+
+            pokemon.setDescription(pokeRespuesta2.getFlavor_text_entries().stream()
+            .filter(text -> text.getLanguage().getName().equals("es"))
+            .map(desc -> desc.getFlavor_text().replace("\n"," "))
+            .findFirst()
+            .orElseGet(() -> {
+                return pokeRespuesta2.getFlavor_text_entries().stream()
+                .filter(text -> text.getLanguage().getName().equals("en"))
+                .map(desc -> desc.getFlavor_text().replace("\n"," "))
+                .findFirst()
+                .orElse("Descripción no disponible :(");
+            })
+            );
+
+            pokemonRepository.save(pokemon);
+        }
+    }
+
+    // CADENAS DE EVOLUCIONES
+    @Transactional
+    public void procesarEvolutionChain(int chainId){
+        String url = "https://pokeapi.co/api/v2/evolution-chain/" + chainId;        
+        PokemonEvolution pokeRespuesta = restTemplate.getForObject(url, PokemonEvolution.class);
+
+        PokemonEntity basePokemon = pokemonRepository.findByName(pokeRespuesta.getChain().getSpecies().getName());
+        
+        EvolutionChainEntity chain = new EvolutionChainEntity();
+        chain.setId(chainId);
+        chain.setBasePokemon(basePokemon);
+        evolutionChainRepository.save(chain);
+
+        procesarChainRecursivo(pokeRespuesta.getChain(), chain, null);
+    }
+
+    public void procesarChainRecursivo(PokemonEvolution.Chain chain, EvolutionChainEntity chainEntity, PokemonEntity fromPokemon){
+
+        PokemonEntity pokemonActual = pokemonRepository.findByName(chain.getSpecies().getName());
+
+        if(fromPokemon != null){
+            EvolutionDetailEntity detail = new EvolutionDetailEntity();
+            detail.setEvolutionChain(chainEntity);
+            detail.setFromPokemon(fromPokemon);
+            detail.setToPokemon(pokemonActual);
+        
+
+            if(!chain.getEvolution_details().isEmpty()){
+                detail.setTriggerType(chain.getEvolution_details().get(0).getTrigger().getName());
+                detail.setItemName(chain.getEvolution_details().get(0).getItem() !=null ? chain.getEvolution_details().get(0).getItem().getName() : null);
+                detail.setMinLevel(chain.getEvolution_details().get(0).getMin_level());
+                detail.setMinHappiness(chain.getEvolution_details().get(0).getMin_happiness());
+                detail.setTimeOfDay(chain.getEvolution_details().get(0).getTime_of_day());
+            }
+
+            evolutionDetailRepository.save(detail);
+        }
+
+
+        for(PokemonEvolution.EvolvesTo evolvesTo: chain.getEvolves_to()){
+            procesarEvoluciones(evolvesTo, chainEntity, pokemonActual);
+        }
+    }
+
+
+    public void procesarEvoluciones(PokemonEvolution.EvolvesTo evolvesTo, EvolutionChainEntity chainEntity, PokemonEntity fromPokemon){
+        PokemonEntity toPokemon = pokemonRepository.findByName(evolvesTo.getSpecies().getName());
+
+        if(fromPokemon != null){
+            EvolutionDetailEntity detail = new EvolutionDetailEntity();
+            detail.setEvolutionChain(chainEntity);
+            detail.setFromPokemon(fromPokemon);
+            detail.setToPokemon(toPokemon);
+
+            if(!evolvesTo.getEvolution_details().isEmpty()){
+                detail.setTriggerType(evolvesTo.getEvolution_details().get(0).getTrigger().getName());
+                detail.setItemName(evolvesTo.getEvolution_details().get(0).getItem() !=null ? evolvesTo.getEvolution_details().get(0).getItem().getName() : null);
+                detail.setMinLevel(evolvesTo.getEvolution_details().get(0).getMin_level());
+                detail.setMinHappiness(evolvesTo.getEvolution_details().get(0).getMin_happiness());
+                detail.setTimeOfDay(evolvesTo.getEvolution_details().get(0).getTime_of_day());
+            }
+
+            evolutionDetailRepository.save(detail);
+        }
+
+        for(PokemonEvolution.EvolvesTo nextEvol: evolvesTo.getEvolves_to()){
+            procesarEvoluciones(nextEvol, chainEntity, toPokemon);
+        }
+    }
+
+
 }

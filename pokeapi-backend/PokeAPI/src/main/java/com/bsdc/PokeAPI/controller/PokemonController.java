@@ -72,6 +72,24 @@ public class PokemonController {
         return ResponseEntity.ok("Stats guardadas con exito JEJE");
     }
 
+    @GetMapping("/agregarDataPokemonSpecies")
+    public ResponseEntity<String> agregarDataPokemonSpecies(){
+        bdPokeAPIService.agregarDataPokemonSpecies();
+        return ResponseEntity.ok("Se han guardado los capture_rate y las description para cada pokemon JEJE");
+    }
+
+    @GetMapping("/agregarEvoluciones")
+    public ResponseEntity<String> agregarEvoluciones(){
+        for(int chainId = 223; chainId<=549; chainId++){
+            try{
+                bdPokeAPIService.procesarEvolutionChain(chainId);
+            }catch(Exception e){
+                System.out.println("Error en la cadena: "+chainId+" -> "+ e.getMessage());
+            }
+        }
+        return ResponseEntity.ok("Se han guardado las evoluciones para cada pokemon JEJE");
+    }
+
     // **************************** Llamada directa a la PokeApi ****************************
     /*@Autowired
     private PokemonService pokemonService;
