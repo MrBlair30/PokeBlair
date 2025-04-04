@@ -29,8 +29,7 @@ public class PokemonController {
 
     @GetMapping("/id/{id}")
     public ResponseEntity<PokemonDTO> getPokemonById(@PathVariable int id) {
-        PokemonEntity pokemon = bdPokeAPIService.getPokemonById(id);
-        return ResponseEntity.ok(new PokemonDTO(pokemon));
+        return ResponseEntity.ok(bdPokeAPIService.getPokemonConEvoluciones(id));
     }
 
     @GetMapping("/name/{name}")
@@ -58,6 +57,11 @@ public class PokemonController {
     @GetMapping("/porGeneracion")
     public ResponseEntity<Page<PokemonDTO>> getPokemonByGeneration(@RequestParam int id, @PageableDefault(size=50, sort="id") Pageable pageable){
         return ResponseEntity.ok(bdPokeAPIService.getPokemonByGeneration(id, pageable));
+    }
+
+    @GetMapping("/evoluciones/{id}")
+    public ResponseEntity<PokemonDTO> getEvoluciones(@PathVariable int id){
+        return ResponseEntity.ok(bdPokeAPIService.getPokemonConEvoluciones(id));
     }
 
     @GetMapping("/actualizarSprites")
@@ -89,7 +93,7 @@ public class PokemonController {
         }
         return ResponseEntity.ok("Se han guardado las evoluciones para cada pokemon JEJE");
     }
-
+    
     // **************************** Llamada directa a la PokeApi ****************************
     /*@Autowired
     private PokemonService pokemonService;

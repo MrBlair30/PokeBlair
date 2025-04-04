@@ -1,5 +1,6 @@
 package com.bsdc.PokeAPI.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import com.bsdc.PokeAPI.dto.PokemonDTO;
+import com.bsdc.PokeAPI.dto.PokemonDTO.EvolutionChainDTO;
 import com.bsdc.PokeAPI.entidades.EvolutionChainEntity;
 import com.bsdc.PokeAPI.entidades.EvolutionDetailEntity;
 import com.bsdc.PokeAPI.entidades.GenerationEntity;
@@ -292,4 +294,49 @@ public class BDPokeAPIService {
     }
 
 
+    public PokemonDTO getPokemonConEvoluciones(int id){
+        PokemonEntity pokemon = pokemonRepository.findById(id);
+        
+        PokemonDTO dto = new PokemonDTO(pokemon);
+        
+        PokemonEntity chainStart = econtrarInicioCadena(pokemon);        
+        dto.setEvolutionChain(getCadenaCompleta(chainStart));
+        
+        return dto;
+    }
+
+    public PokemonEntity econtrarInicioCadena(PokemonEntity pokemon){
+        return evolutionDetailRepository.findByToPokemonId(pokemon.getId()).
+        stream()
+        .findFirst()
+        .map(EvolutionDetailEntity::getFromPokemon)
+        .map(this::econtrarInicioCadena)
+        .orElse(pokemon);
+    }
+
+    public List<PokemonDTO.EvolutionChainDTO> getCadenaCompleta(PokemonEntity pokemon) {
+        return buildChainRecursive(pokemon, null);
+    }
+    
+    private List<PokemonDTO.EvolutionChainDTO> buildChainRecursive(PokemonEntity pokemon, EvolutionDetailEntity evolutionDetail) {
+        List<PokemonDTO.EvolutionChainDTO> chain = new ArrayList<>();
+        
+        // Añadir el Pokémon actual con sus detalles de evolución
+        chain.add(new PokemonDTO.EvolutionChainDTO(
+            pokemon.getId(),
+            pokemon.getName(),
+            evolutionDetail != null ? evolutionDetail.getTriggerType() : null,
+            evolutionDetail != null ? evolutionDetail.getMinLevel() : null,
+            evolutionDetail != null ? evolutionDetail.getItemName() : null,
+            evolutionDetail != null ? evolutionDetail.getTimeOfDay() : null
+        ));
+    
+        // Procesar evoluciones siguientes
+        evolutionDetailRepository.findByFromPokemonId(pokemon.getId())
+            .forEach(evo -> {
+                chain.addAll(buildChainRecursive(evo.getToPokemon(), evo));
+            });
+        
+        return chain;
+    }
 }
