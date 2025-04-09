@@ -158,10 +158,10 @@ export class PokemonListComponent implements OnInit{
       Breakpoints.Large
     ]).subscribe(resultado =>{
       if(resultado.breakpoints[Breakpoints.XSmall]){
-        this.pagSize = 5;
+        this.pagSize = 10;
         this.cols = 1;
       }else if(resultado.breakpoints[Breakpoints.Small]){
-        this.pagSize = 10;
+        this.pagSize = 15;
         this.cols = 2;
       }else if(resultado.breakpoints[Breakpoints.Medium]){
         this.pagSize = 20;

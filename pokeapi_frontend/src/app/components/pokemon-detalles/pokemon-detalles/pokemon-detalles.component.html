@@ -1,18 +1,96 @@
-<p>pokemon-detalles works!</p>
-<button (click)="mostrarLista()">Cargar lista de pokemons</button>
 <div>
     <mat-card style="background-color: #fff;">
-        <mat-card-header>            
-        </mat-card-header>
-        <img mat-card-image [src]="pokemon.sprites.frontShiny" alt="pokemon">
-        <span style="background-color: #e3350d;"></span>
         <mat-card-content >
-            <span style="opacity: 0.5;">Nro. {{pokemon.id | number:'3.0'}}</span>
-            <h1>{{pokemon.name | titlecase}}</h1>                    
-            <div class="types"></div>
-            <span *ngFor="let tipos of pokemon.types" [class]="'type-' + tipos">
-                {{traducirTipo(tipos)}}
-            </span>             
+            <div class="navegation-buttons-container" style="display: flex; justify-content: center;">
+                <button mat-icon-button aria-label="Previous Pokemon" class="custom-icon-button" (click)="mostrarAnteriorPokemon()">
+                    <mat-icon class="custom-icon">chevron_left</mat-icon>
+                </button>
+                <button mat-icon-button aria-label="Home" class="custom-icon-button" (click)="mostrarLista()">
+                    <mat-icon class="custom-icon">home</mat-icon>
+                </button>
+                <button mat-icon-button aria-label="Next Pokemon" class="custom-icon-button" (click)="mostrarSiguientePokemon()">
+                    <mat-icon class="custom-icon">chevron_right</mat-icon>
+                </button>
+            </div>
+            <div class="pokemon-container">                
+                <div class="pokemon-sprite-container">
+                    <button class="sprite-button" (click)="alternarNormalShiny()">Alternar Sprite</button>
+                    <img *ngIf="spriteNormal" mat-card-image [src]="pokemon.sprites.frontDefault" alt="pokemon" class="pokemon-sprite">
+                    <img *ngIf="!spriteNormal" mat-card-image [src]="pokemon.sprites.frontShiny" alt="pokemon" class="pokemon-sprite">
+                </div>
+                <div class="pokemon-info-container" style="font-family: sans-serif;">
+                    <span style="opacity: 0.5; font-size: medium;">Nro. {{pokemon.id | number:'3.0'}}</span>
+                    <h1>{{pokemon.name | titlecase}}</h1>                    
+                    
+                    <span *ngFor="let tipos of pokemon.types" [class]="'type-' + tipos">
+                        {{traducirTipo(tipos)}}
+                    </span>
+    
+                    <h3 style="font-weight: 500; font-size: 20px;">{{pokemon.description}}</h3>
+                    <h3>Radio de captura:</h3>
+                    <p>{{(pokemon.capture_rate/255)*100 | number:'1.2-2'}}%</p>
+                    <div style="margin: 0; padding: 0; display:flex; flex-direction:row; gap: 10px; align-items: center;">
+                        <h3 style="margin: 0; padding: 0;">Altura:</h3>
+                        <p style="margin: 0; padding: 0;">{{pokemon.height/10}}m</p>
+                    
+                        <h3 style="margin: 0; padding: 0;">Peso:</h3>
+                        <p style="margin: 0; padding: 0;">{{pokemon.weight/10}}kg</p>
+                    </div>
+                    <h3>Generación {{pokemon.generation.id}}:</h3>
+                    <p>{{pokemon.generation.name}}</p>
+                    <h3>Habilidades:</h3>
+                    <p *ngFor="let ability of pokemon.abilities">
+                        ▹ {{traducirHabilidades(ability)}}
+                    </p>
+                </div>
+            </div>
+            <div class="stats-container-master">
+                <div class="stats-container">
+                    <div class="stats-header">
+                        <h3>Estadisticas</h3>
+                        <div class="stats-bar-container">
+                            <div *ngFor="let stat of pokemon.stats" class="stat-bar" [style.width]="stat.base_stat + '%'">
+                                <span style="padding-left: 5px; padding-bottom: 5px;">{{traducirStats(stat.name)}}</span>
+                                <div class="stat-bar-background">
+                                    <div class="stat-bar-fill">
+                                        <span>{{stat.base_stat}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div class="evolution-container">
+                <h3>Cadena Evolutiva</h3>
+                <div class="evolution-chain">
+                    <div *ngFor="let evolution of pokemon.evolutionChain" class="evolution-card" (click)="cargarPokemonEvo(evolution.id)">
+                        <div *ngIf="evolution.triggerType" class="evolution-details">
+                            <small>
+                            <span *ngIf="evolution.minLevel">Nivel {{ evolution.minLevel }}</span>
+                            <span *ngIf="evolution.itemName"> Con {{ traducirItems(evolution.itemName) }}</span>
+                            <span *ngIf="evolution.timeOfDay"> De {{ traducirDayNight(evolution.timeOfDay) }}</span>
+                            </small>
+                        </div>
+                        <img [src]="getPokemonSprite(evolution.id)" [alt]="evolution.name" class="evolution-sprite">
+                    
+                        <div class="evolution-info">
+                            <div class="evolution-name-container">
+                                <span class="evolution-name">{{ evolution.name | titlecase }}</span>
+                                <span class="evolution-id" style="opacity: 0.5;"> #{{ evolution.id | number:'3.0' }}</span>
+                            </div>
+                            <div class="evolution-type-container">
+                                <span class="evolution-type" *ngFor="let type of evolution.types" [class]="'type-' + type">
+                                    {{ traducirTipo(type) }}
+                                </span>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
         </mat-card-content>
     </mat-card>
 </div>

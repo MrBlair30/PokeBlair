@@ -10,6 +10,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatCardModule} from '@angular/material/card';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { FormsModule } from '@angular/forms';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
@@ -33,6 +34,7 @@ import { PokemonDetallesComponent } from './components/pokemon-detalles/pokemon-
     MatSelectModule,
     MatInputModule,
     MatButtonModule,
+    MatIconModule,
     MatSnackBarModule,
     HttpClientModule
   ],

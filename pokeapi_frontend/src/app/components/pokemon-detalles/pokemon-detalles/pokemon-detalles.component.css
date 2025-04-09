@@ -1,8 +1,163 @@
+.custom-icon-button {
+    background-color: #f5f5f5;
+    border-radius: 0;
+    width: 27%;
+    height: 50px;
+    margin: 5px 2px 2px 0;    
+    transition: all 0.3s ease;
+}
+
+@media (max-width: 768px) {
+    .custom-icon-button {
+        width: 33%;
+        height: 50px;
+    }
+}
+
+.custom-icon-button:hover {
+    background-color: #e0e0e0;
+    transform: translateY(-3px);
+}
+
+.custom-icon {
+    font-size: 40px;
+    width: 40px;
+    height: 40px;    
+    color: #8e5ebb;
+}
+
+.custom-icon-button:hover .custom-icon {
+    color: #5e1a8f;
+}
+
+.pokemon-container {
+    display: flex;
+    flex-wrap: wrap; 
+    flex-direction: row;
+    justify-content: center;
+}
+
+.pokemon-sprite-container {
+    min-width: 250px;
+    max-width: 340px;
+    background-color: #f5f4f4;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 768px) {
+    .pokemon-sprite-container {
+        max-width: 100%;
+    }
+}
+
+.pokemon-sprite {
+    min-width: 250px;
+    min-height: 250px;
+    max-width: 340px;
+    max-height: 340px;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .pokemon-sprite {
+        max-width: 100%;
+        max-height: 100%;
+    }
+}
+
+.pokemon-info-container {
+    background-color: #eaeaea;
+    font-size: 14px;
+    padding: 20px;    
+    max-width: 700px;
+    min-width: 250px;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 1107px) {
+    .pokemon-info-container {
+        border-bottom-left-radius: 12px;
+        border-bottom-right-radius: 12px;
+        border-top-right-radius: 0px;
+    }
+}
+
+.pokemon-info-container p{
+    font-size: 18px;
+}
+
+
+.sprite-button {
+    font-family: sans-serif;
+    font-weight: bold;
+    background-color: #8e5ebb;
+    color: #fff;
+    padding: 10px;
+    margin: 4px;
+    border: none;
+    border-radius: 10px;
+}
+
+.sprite-button:hover {
+    background-color: #5e1a8f;
+    cursor: pointer;
+}
+
+.stats-container-master {
+    display: flex;
+    justify-content: center;
+}
+
+.stats-container {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    padding: 15px;
+    padding-top: 0;
+    background-color: #eaeaea;
+    border-radius: 12px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    border-radius: 12px;
+    width: 60%;    
+}
+
+@media (max-width: 768px) {
+    .stats-container {
+        width: 100%;
+    }
+}
+
+.stats-bar-container {
+    width: 60%;
+}
+
+.stat-bar {
+    font-weight: 550;
+    margin: 5px;    
+}
+
+.stat-bar-background {    
+    border: solid 2px #8e5ebb;
+    border-radius: 20px;
+}
+
+.stat-bar-fill {
+    background-color: #8e5ebb;
+    color: #fff;
+    font-weight: 550;
+    margin: 2px;
+    padding: 3px;
+    padding-left: 10px;
+    border: solid 1px #8e5ebb;
+    border-radius: 20px;
+}
+
 .types{
     margin: 10px;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: center;        
 }
 .type-grass{
     background-color: #1cb477;
@@ -10,6 +165,8 @@
     font-size: medium;
     padding: 10px;
     margin-right: 5px;
+    border-radius: 15px;
+    font-weight: 550;
 }
 .type-fire{
     background-color: #e04f16;
@@ -17,6 +174,8 @@
     font-size: medium;
     padding: 10px;
     margin-right: 5px;
+    border-radius: 15px;
+    font-weight: 550;
 }
 .type-poison{
     background-color: #b41cac;
@@ -24,6 +183,8 @@
     font-size: medium;
     padding: 10px;
     margin-right: 5px;
+    border-radius: 15px;
+    font-weight: 550;
 }
 .type-bug{
     background-color: #729f3f;
@@ -31,6 +192,8 @@
     font-size: medium;
     padding: 10px;
     margin-right: 5px;
+    border-radius: 15px;
+    font-weight: 550;
 }
 .type-dark{
     background-color: #707070;
@@ -38,6 +201,8 @@
     font-size: medium;
     padding: 10px;
     margin-right: 5px;
+    border-radius: 15px;
+    font-weight: 550;
 }
 .type-dragon{
     background: linear-gradient(180deg, #53a4cf 50%, #f16e57 50%);
@@ -45,6 +210,8 @@
     font-size: medium;
     padding: 10px;
     margin-right: 5px;
+    border-radius: 15px;
+    font-weight: 550;
 }
 .type-electric{
     background-color: #eed535;
@@ -52,6 +219,8 @@
     font-size: medium;
     padding: 10px;
     margin-right: 5px;
+    border-radius: 15px;
+    font-weight: 550;
 }
 .type-fairy{
     background-color: #fdb9e9;
@@ -59,6 +228,8 @@
     font-size: medium;
     padding: 10px;
     margin-right: 5px;
+    border-radius: 15px;
+    font-weight: 550;
 }
 .type-fighting{
     background-color: #d56723;
@@ -66,6 +237,8 @@
     font-size: medium;
     padding: 10px;
     margin-right: 5px;
+    border-radius: 15px;
+    font-weight: 550;
 }
 .type-flying{
     background: linear-gradient(180deg, #3dc7ef 50%, #bdb9b8 50%);
@@ -73,6 +246,8 @@
     font-size: medium;
     padding: 10px;
     margin-right: 5px;
+    border-radius: 15px;
+    font-weight: 550;
 }
 .type-ghost{
     background-color: #7b62a3;
@@ -80,6 +255,8 @@
     font-size: medium;
     padding: 10px;
     margin-right: 5px;
+    border-radius: 15px;
+    font-weight: 550;
 }
 .type-ground{
     background: linear-gradient(180deg, #f7de3f 50%, #ab9842 50%);
@@ -87,6 +264,8 @@
     font-size: medium;
     padding: 10px;
     margin-right: 5px;
+    border-radius: 15px;
+    font-weight: 550;
 }
 .type-ice{
     background-color: #51c4e7;
@@ -94,6 +273,8 @@
     font-size: medium;
     padding: 10px;
     margin-right: 5px;
+    border-radius: 15px;
+    font-weight: 550;
 }
 .type-normal{
     background-color: #a4acaf;
@@ -101,6 +282,8 @@
     font-size: medium;
     padding: 10px;
     margin-right: 5px;
+    border-radius: 15px;
+    font-weight: 550;
 }
 .type-psychic{
     background-color: #f366b9;
@@ -108,6 +291,8 @@
     font-size: medium;
     padding: 10px;
     margin-right: 5px;
+    border-radius: 15px;
+    font-weight: 550;
 }
 .type-rock{
     background-color: #a38c21;
@@ -115,6 +300,8 @@
     font-size: medium;
     padding: 10px;
     margin-right: 5px;
+    border-radius: 15px;
+    font-weight: 550;
 }
 .type-steel{
     background-color: #9eb7b8;
@@ -122,6 +309,8 @@
     font-size: medium;
     padding: 10px;
     margin-right: 5px;
+    border-radius: 15px;
+    font-weight: 550;
 }
 .type-water{
     background-color: #4592c4;
@@ -129,10 +318,75 @@
     font-size: medium;
     padding: 10px;
     margin-right: 5px;
+    border-radius: 15px;
+    font-weight: 550;
 }
 
-.spinner-container {
+.evolution-container {
+    background-color: #ddd;
+    border-radius: 12px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.evolution-container h3 {
+    padding: 15px;
+    padding-bottom: 0;
+}
+
+.evolution-chain {
     display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
     justify-content: center;
-    align-items: center;    
+    background-color: #eee;
+    padding: 20px;
+}
+
+.evolution-card {
+    width: 240px;
+    height: 240px;
+    background-color: #f5f4f4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 100px;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
+}
+
+.evolution-card:hover {
+    transform: translateY(-10px);
+    cursor: pointer;
+}
+
+.evolution-sprite {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    width: 145px;
+    height: 145px;
+}
+
+.evolution-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.evolution-type-container {
+    display: inline;
+}
+.evolution-name-container {
+    display: inline;
+    padding-bottom: 15px;
+}
+
+.evolution-name {
+    font-family: sans-serif;
+    font-weight: 550;
+    color: #463e3e;
+}
+
+.evolution-details {
+    z-index: 1;
+    font-weight: 500;
 }

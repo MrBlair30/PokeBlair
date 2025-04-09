@@ -63,6 +63,7 @@ mat-grid-list {
     font-size: medium;
     padding: 10px;
     margin-right: 5px;
+    border-radius: 15px;
 }
 .type-fire{
     background-color: #e04f16;
@@ -70,6 +71,7 @@ mat-grid-list {
     font-size: medium;
     padding: 10px;
     margin-right: 5px;
+    border-radius: 15px;
 }
 .type-poison{
     background-color: #b41cac;
@@ -77,6 +79,7 @@ mat-grid-list {
     font-size: medium;
     padding: 10px;
     margin-right: 5px;
+    border-radius: 15px;
 }
 .type-bug{
     background-color: #729f3f;
@@ -84,6 +87,7 @@ mat-grid-list {
     font-size: medium;
     padding: 10px;
     margin-right: 5px;
+    border-radius: 15px;
 }
 .type-dark{
     background-color: #707070;
@@ -91,6 +95,7 @@ mat-grid-list {
     font-size: medium;
     padding: 10px;
     margin-right: 5px;
+    border-radius: 15px;
 }
 .type-dragon{
     background: linear-gradient(180deg, #53a4cf 50%, #f16e57 50%);
@@ -98,6 +103,7 @@ mat-grid-list {
     font-size: medium;
     padding: 10px;
     margin-right: 5px;
+    border-radius: 15px;
 }
 .type-electric{
     background-color: #eed535;
@@ -105,6 +111,7 @@ mat-grid-list {
     font-size: medium;
     padding: 10px;
     margin-right: 5px;
+    border-radius: 15px;
 }
 .type-fairy{
     background-color: #fdb9e9;
@@ -112,6 +119,7 @@ mat-grid-list {
     font-size: medium;
     padding: 10px;
     margin-right: 5px;
+    border-radius: 15px;
 }
 .type-fighting{
     background-color: #d56723;
@@ -119,6 +127,7 @@ mat-grid-list {
     font-size: medium;
     padding: 10px;
     margin-right: 5px;
+    border-radius: 15px;
 }
 .type-flying{
     background: linear-gradient(180deg, #3dc7ef 50%, #bdb9b8 50%);
@@ -126,6 +135,7 @@ mat-grid-list {
     font-size: medium;
     padding: 10px;
     margin-right: 5px;
+    border-radius: 15px;
 }
 .type-ghost{
     background-color: #7b62a3;
@@ -133,6 +143,7 @@ mat-grid-list {
     font-size: medium;
     padding: 10px;
     margin-right: 5px;
+    border-radius: 15px;
 }
 .type-ground{
     background: linear-gradient(180deg, #f7de3f 50%, #ab9842 50%);
@@ -140,6 +151,7 @@ mat-grid-list {
     font-size: medium;
     padding: 10px;
     margin-right: 5px;
+    border-radius: 15px;
 }
 .type-ice{
     background-color: #51c4e7;
@@ -147,6 +159,7 @@ mat-grid-list {
     font-size: medium;
     padding: 10px;
     margin-right: 5px;
+    border-radius: 15px;
 }
 .type-normal{
     background-color: #a4acaf;
@@ -154,6 +167,7 @@ mat-grid-list {
     font-size: medium;
     padding: 10px;
     margin-right: 5px;
+    border-radius: 15px;
 }
 .type-psychic{
     background-color: #f366b9;
@@ -161,6 +175,7 @@ mat-grid-list {
     font-size: medium;
     padding: 10px;
     margin-right: 5px;
+    border-radius: 15px;
 }
 .type-rock{
     background-color: #a38c21;
@@ -168,6 +183,7 @@ mat-grid-list {
     font-size: medium;
     padding: 10px;
     margin-right: 5px;
+    border-radius: 15px;
 }
 .type-steel{
     background-color: #9eb7b8;
@@ -175,6 +191,7 @@ mat-grid-list {
     font-size: medium;
     padding: 10px;
     margin-right: 5px;
+    border-radius: 15px;
 }
 .type-water{
     background-color: #4592c4;
@@ -182,6 +199,7 @@ mat-grid-list {
     font-size: medium;
     padding: 10px;
     margin-right: 5px;
+    border-radius: 15px;
 }
 
 .spinner-container {

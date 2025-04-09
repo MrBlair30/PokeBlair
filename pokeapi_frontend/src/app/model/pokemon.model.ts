@@ -6,7 +6,11 @@ export interface Pokemon {
     types: string[];
     abilities: string[];
     sprites: Sprite;
-    generation: Generation
+    generation: Generation;
+    description: string;
+    capture_rate: number;
+    stats: Stat[];
+    evolutionChain: EvolutionChain[];
   }
   
   export interface Sprite {
@@ -17,4 +21,19 @@ export interface Pokemon {
   export interface Generation {
     id: number;
     name: string;
+  }
+
+  export interface Stat {
+    name: string;
+    base_stat: number;
+  }
+
+  export interface EvolutionChain {
+    id: number;
+    name: string;
+    triggerType: string;
+    minLevel: number;
+    itemName: string;
+    timeOfDay: string;
+    types: string[];
   }
