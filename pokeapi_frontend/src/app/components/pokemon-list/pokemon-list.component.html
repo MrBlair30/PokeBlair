@@ -1,30 +1,51 @@
-<div>
-    <mat-form-field appearance="fill" style="width: 50%;">
-        <mat-label>Buscar Pokemon</mat-label>
-        <input matInput placeholder="Nombre o ID..." [(ngModel)]="busqueda" (keyup.enter)="buscarPokemon()">
-    </mat-form-field>
-    <button mat-flat-button style="margin-right: 100px;" (click)="buscarPokemon()">Buscar</button>
+<mat-toolbar>    
+    <button *ngIf="botonAbrirMenu" mat-icon-button class="menu-icon" (click)="mostrarMenu = !mostrarMenu">
+        <mat-icon>menu</mat-icon>
+    </button>
+    <div class="title-container">
+        <h2>PokeBlair</h2>
+    </div>
+    <div *ngIf="mostrarMenu" class="menu-container">
+        <mat-form-field appearance="outline" class="search-field">
+            <mat-label>Buscar Pokemon</mat-label>
+            <input matInput placeholder="Nombre o ID..." [(ngModel)]="busqueda" (keyup.enter)="buscarPokemon()">
+        </mat-form-field>
+        <button class="search-button" mat-flat-button (click)="buscarPokemon()">
+            <mat-icon>search</mat-icon>
+        </button>
+        
+        <button mat-button [matMenuTriggerFor]="menu">
+            <mat-icon>chevron_right</mat-icon>
+            Filtros
+        </button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="$event.stopPropagation()">
+                <mat-form-field appearance="outline" class="filter-type-field" (click)="$event.stopPropagation()">
+                    <mat-label>Filtrar por Tipo</mat-label>
+                    <mat-select [(ngModel)]="tipoSeleccionado" (selectionChange)="cambioDeTipo()">
+                        <mat-option value="">Todos</mat-option>
+                        <mat-option *ngFor="let tipos of types" [value]="tipos">
+                            {{traducirTipo(tipos)}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </button>
+            <button mat-menu-item (click)="$event.stopPropagation()">
+                <mat-form-field appearance="outline" class="filter-generation-field" (click)="$event.stopPropagation()">
+                    <mat-label>Filtrar por Generación</mat-label>
+                    <mat-select [(ngModel)]="generacionSeleccionada" (selectionChange)="cambioDeGeneracion()">
+                        <mat-option value="">Todos</mat-option>
+                        <mat-option *ngFor="let generaciones of generations" [value]="generaciones">
+                            Generación - {{generaciones}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </button>
+        </mat-menu>
+    </div>
+    
+</mat-toolbar>
 
-    <mat-form-field appearance="fill">
-        <mat-label>Filtrar por Tipo</mat-label>
-        <mat-select [(ngModel)]="tipoSeleccionado" (selectionChange)="cambioDeTipo()">
-            <mat-option value="">Todos</mat-option>
-            <mat-option *ngFor="let tipos of types" [value]="tipos">
-                {{traducirTipo(tipos)}}
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
-
-    <mat-form-field appearance="fill">
-        <mat-label>Filtrar por Generación</mat-label>
-        <mat-select [(ngModel)]="generacionSeleccionada" (selectionChange)="cambioDeGeneracion()">
-            <mat-option value="">Todos</mat-option>
-            <mat-option *ngFor="let generaciones of generations" [value]="generaciones">
-                Generación - {{generaciones}}
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
-</div>
 
 <div (scroll)="onScroll($event)" style="height: 80vh; overflow-y: auto; padding: 16px;" class="grid-container">   
     <div *ngIf="cargandoNuevos" class="spinner-container">
@@ -53,5 +74,4 @@
         <mat-spinner *ngIf="!cargandoNuevos && isLoading"></mat-spinner>
     </div>
 </div>
-<!--<button (click)="cargarMas()" style="width: 98.7vw; height: 100px;">Cargar mas</button>-->
        

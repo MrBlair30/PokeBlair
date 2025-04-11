@@ -1,13 +1,68 @@
+mat-toolbar {
+    display: flex;
+    justify-content: space-between;
+}
+
+.menu-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+@media (max-width: 600px) {
+    .menu-container {                
+        width: 100vw;
+        height: 100vh;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+        background-color: #222e;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .menu-icon {
+        z-index: 2000;
+    }
+    .title-container {
+        z-index: 2000;
+    }
+}
+
+.search-field {
+    margin-top: 22px !important;
+    width: 100%;    
+}    
+
+.search-button {    
+    background-color: #8e5ebb !important;
+    color: #eee !important;
+    padding-left: 15px !important;
+    padding-right: 0px !important;
+}
+
+.filter-type-field {
+    margin-top: 5px;
+}
+
+.filter-generation-field {
+    margin-top: 5px;
+}
+
 .grid-container{
-    background: linear-gradient(180deg,#fff 20%,#ccc);
+    background: linear-gradient(180deg,#eee 20%,#ccc);
 }
 mat-card {
     display: flex;
     flex-direction: column;
-    background-color: #e3350d;
+    background-color: #f5f4f4;
     padding: 0px;
     width: 80%;
     height: 90%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     transition: all 0.3s ease;
 }
 
@@ -18,7 +73,7 @@ mat-card:hover {
   }
   
 mat-card-header{
-    background-color: #e3350d;
+    background-color: #f5f4f4;
     color: #fff;
     border-radius: 10px;
 }
@@ -30,11 +85,12 @@ mat-card-content {
     flex-grow: 1;
     padding: 8px;
     background-color: #eee;
-    border: solid 15px #e3350d;    
+    border-radius: 10px;
+    border: solid 15px #f5f4f4;    
 }
 
 img {
-    background-color: #eee;
+    background-color: #f5f4f4;;
     margin: 20px;
 }
 
@@ -209,5 +265,5 @@ mat-grid-list {
 }
 
 mat-spinner {    
-    --mdc-circular-progress-active-indicator-color: #ff5722;
+    --mdc-circular-progress-active-indicator-color: #8e5ebb;
 }

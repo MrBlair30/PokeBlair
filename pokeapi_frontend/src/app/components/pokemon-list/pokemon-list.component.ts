@@ -4,6 +4,7 @@ import { PokemonService } from '../../services/pokemon.service';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import {  } from '@angular/core';
 
 @Component({
   selector: 'app-pokemon-list',
@@ -20,11 +21,15 @@ export class PokemonListComponent implements OnInit{
   public isLoading = false;
   public cargandoNuevos = false;
   public cols: number = 4;
+  public mostrarMenu: boolean = false;
+  public botonAbrirMenu: boolean = false;
 
   public types: string[] = 
   [
-    "fire","water","grass","electric","steel","fairy","dark","bug","psychic","ground","rock","flying",
-    "dragon","poison","normal","ghost","fighting","ice"    
+    "steel", "water", "bug", "dragon", "electric", 
+    "ghost", "fire", "fairy", "ice", "fighting", "normal", 
+    "grass", "psychic", "rock", "dark", "ground", 
+    "poison", "flying"    
   ];
 
   public generations: string[] = ["1","2","3","4","5","6","7","8","9"];
@@ -160,15 +165,23 @@ export class PokemonListComponent implements OnInit{
       if(resultado.breakpoints[Breakpoints.XSmall]){
         this.pagSize = 10;
         this.cols = 1;
+        this.mostrarMenu = false;
+        this.botonAbrirMenu = true;
       }else if(resultado.breakpoints[Breakpoints.Small]){
         this.pagSize = 15;
         this.cols = 2;
+        this.mostrarMenu = true;
+        this.botonAbrirMenu = false;
       }else if(resultado.breakpoints[Breakpoints.Medium]){
         this.pagSize = 20;
         this.cols = 3;
+        this.mostrarMenu = true;
+        this.botonAbrirMenu = false;
       }else{
         this.pagSize = 50;
         this.cols = 4;
+        this.mostrarMenu = true;
+        this.botonAbrirMenu = false;
       }
     })
   }

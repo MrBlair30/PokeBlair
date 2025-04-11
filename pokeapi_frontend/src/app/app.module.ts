@@ -11,6 +11,9 @@ import {MatCardModule} from '@angular/material/card';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatMenuModule} from '@angular/material/menu';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { FormsModule } from '@angular/forms';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
@@ -35,6 +38,9 @@ import { PokemonDetallesComponent } from './components/pokemon-detalles/pokemon-
     MatInputModule,
     MatButtonModule,
     MatIconModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    MatMenuModule,
     MatSnackBarModule,
     HttpClientModule
   ],
