@@ -8,7 +8,8 @@ import { Observable } from 'rxjs';
 })
 export class PokemonService {
 
-  private url = "http://192.168.1.69:8080/api/pokemon";
+  private url = "https://pokeblair-backend-production.up.railway.app/api/pokemon";
+  //private url = "http://192.168.1.69:8080/api/pokemon";
 
   constructor(private http: HttpClient) { }
 

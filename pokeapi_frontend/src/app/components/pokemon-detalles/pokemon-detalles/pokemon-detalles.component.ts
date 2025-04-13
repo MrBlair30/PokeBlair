@@ -461,6 +461,7 @@ export class PokemonDetallesComponent implements OnInit{
   public mostrarSiguientePokemon(){
     let id = +this.route.snapshot.paramMap.get("id")!;
     let siguientePokemonId = id + 1;
+    
     this.router.navigateByUrl("/", {skipLocationChange: true}).then(() => {
       this.router.navigate(["/pokemon", siguientePokemonId]);
     })
@@ -469,6 +470,7 @@ export class PokemonDetallesComponent implements OnInit{
   public mostrarAnteriorPokemon(){
     let id = +this.route.snapshot.paramMap.get("id")!;
     let anteriorPokemonId = id - 1;
+    
     this.router.navigateByUrl("/", {skipLocationChange: true}).then(() => {
       this.router.navigate(["/pokemon", anteriorPokemonId]);
     })
