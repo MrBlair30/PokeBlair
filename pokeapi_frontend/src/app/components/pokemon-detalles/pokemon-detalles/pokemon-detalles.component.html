@@ -2,13 +2,13 @@
     <mat-card style="background-color: #fff;">
         <mat-card-content >
             <div class="navegation-buttons-container" style="display: flex; justify-content: center;">
-                <button mat-icon-button aria-label="Previous Pokemon" class="custom-icon-button" (click)="mostrarAnteriorPokemon()">
+                <button mat-icon-button aria-label="Previous Pokemon" class="custom-icon-button" (click)="mostrarAnteriorPokemon()" [disabled]="pokemon.id === 1">
                     <mat-icon class="custom-icon">chevron_left</mat-icon>
                 </button>
                 <button mat-icon-button aria-label="Home" class="custom-icon-button" (click)="mostrarLista()">
                     <mat-icon class="custom-icon">home</mat-icon>
                 </button>
-                <button mat-icon-button aria-label="Next Pokemon" class="custom-icon-button" (click)="mostrarSiguientePokemon()">
+                <button mat-icon-button aria-label="Next Pokemon" class="custom-icon-button" (click)="mostrarSiguientePokemon()" [disabled]="pokemon.id === 1025">
                     <mat-icon class="custom-icon">chevron_right</mat-icon>
                 </button>
             </div>
