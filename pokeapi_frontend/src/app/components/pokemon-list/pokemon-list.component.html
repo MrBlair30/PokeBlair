@@ -1,6 +1,6 @@
 <mat-toolbar>    
     <button *ngIf="botonAbrirMenu" mat-icon-button class="menu-icon" (click)="mostrarMenu = !mostrarMenu">
-        <mat-icon>menu</mat-icon>
+        <mat-icon fontIcon="menu"></mat-icon>
     </button>
     <div class="title-container">
         <h2>PokeBlair</h2>
@@ -11,11 +11,11 @@
             <input matInput placeholder="Nombre o ID..." [(ngModel)]="busqueda" (keyup.enter)="buscarPokemon()">
         </mat-form-field>
         <button class="search-button" mat-flat-button (click)="buscarPokemon()">
-            <mat-icon>search</mat-icon>
+            <mat-icon fontIcon="search"></mat-icon>
         </button>
         
         <button mat-button [matMenuTriggerFor]="menu">
-            <mat-icon>chevron_right</mat-icon>
+            <mat-icon fontIcon="chevron_right"></mat-icon>
             Filtros
         </button>
         <mat-menu #menu="matMenu">

@@ -1,6 +1,7 @@
 mat-toolbar {
     display: flex;
     justify-content: space-between;
+    background-color: #222;
 }
 
 .menu-container {
@@ -12,12 +13,12 @@ mat-toolbar {
 @media (max-width: 600px) {
     .menu-container {                
         width: 100vw;
-        height: 100vh;
+        height: 40vh;
         position: absolute;
         top: 0;
         left: 0;
         z-index: 1000;
-        background-color: #222e;
+        background-color: #222f;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -29,6 +30,17 @@ mat-toolbar {
     }
     .title-container {
         z-index: 2000;
+    }
+    
+    @media (max-height: 620px) {
+        .menu-container {                
+            height: 60vh;
+        }
+    }
+    @media (max-height: 430px) {
+        .menu-container {                
+            height: 100vh;
+        }
     }
 }
 
